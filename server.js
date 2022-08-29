@@ -8,6 +8,7 @@ const T = new Twit(config);
 // T.post('statuses/update', { status: 'TES' }, function (err, data, response) {
 //   console.log(data);
 // });
+// TRIGGER
 
 console.log('BOT IS STARTING');
 
@@ -74,4 +75,4 @@ function tweetRandomImage() {
 
 setInterval(function () {
   tweetRandomImage();
-}, 3600000); //3600000
+}, 60000); //3600000
