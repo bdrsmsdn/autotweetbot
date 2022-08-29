@@ -75,4 +75,4 @@ function tweetRandomImage() {
 
 setInterval(function () {
   tweetRandomImage();
-}, 60000); //3600000
+}, 3600000); //3600000
