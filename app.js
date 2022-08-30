@@ -2,7 +2,7 @@ require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
 const Twit = require('twit');
-// const config = require('./config');
+const formidable = require('formidable');
 const cron = require('node-cron');
 
 const T = new Twit({ consumer_key: process.env.CONSUMER_KEY, consumer_secret: process.env.CONSUMER_KEY_SECRET, access_token: process.env.ACCESS_TOKEN, access_token_secret: process.env.ACCESS_TOKEN_SECRET });
@@ -19,7 +19,7 @@ function randomFromArray(arr) {
 }
 
 function tweetRandomImage() {
-  fs.readdir('images', function (err, files) {
+  fs.readdir(__dirname + '/images', function (err, files) {
     if (err) {
       console.log('error:', err);
     } else {
@@ -30,7 +30,7 @@ function tweetRandomImage() {
 
       console.log('opening an image...');
       const img = randomFromArray(images);
-      const imagePath = path.join('images/' + img),
+      const imagePath = path.join(__dirname, '/images/' + img),
         b64content = fs.readFileSync(imagePath, { encoding: 'base64' });
 
       console.log('uploading an image...');
@@ -47,7 +47,7 @@ function tweetRandomImage() {
             {
               media_id: image.media_id_string,
               alt_text: {
-                text: 'pacarkuuu',
+                text: 'this picture belong to @switchblase',
               },
             },
             function (err, data, response) {
@@ -65,7 +65,9 @@ function tweetRandomImage() {
                   } else {
                     console.log('posted an image!');
                     //posted image will move to uploaded directory
-                    const nim = path.join('uploaded/' + img);
+                    let form = new formidable.IncomingForm();
+                    form.uploadDir = path.join(__dirname + '/uploaded/');
+                    const nim = 'uploaded/' + img;
                     fs.rename(imagePath, nim, function (err) {
                       if (err) throw err;
                       console.log('Successfully moved image!');
