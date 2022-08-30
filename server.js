@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const Twit = require('twit');
 const config = require('./config');
+const cron = require('node-cron');
 
 const T = new Twit(config);
 
@@ -11,8 +12,9 @@ const T = new Twit(config);
 
 console.log('BOT IS STARTING');
 
-function randomFromArray(images) {
-  return images[Math.floor(Math.random() * images.length)];
+function randomFromArray(arr) {
+  // return images[Math.floor(Math.random() * images.length)];
+  return arr[Math.floor(Math.random() * arr.length)];
 }
 
 function tweetRandomImage() {
@@ -49,11 +51,11 @@ function tweetRandomImage() {
             },
             function (err, data, response) {
               console.log('tweeting the image...');
-
+              var statusArray = ['my pretty gf', '💕', 'the cuttest', 'muffin', 'lifetime lover', 'be my last', 'biggest flex', 'darl', 'bbbb', 'heavenly creature', '💞', '💗', '💖', '💓', '💘', '💝', '💥', '💫', '😍', '🥰'];
               T.post(
                 'statuses/update',
                 {
-                  status: '💞',
+                  status: randomFromArray(statusArray),
                   media_ids: [image.media_id_string],
                 },
                 function (err, data, response) {
@@ -72,6 +74,11 @@ function tweetRandomImage() {
   });
 }
 
-setInterval(function () {
+// setInterval(function () {
+//   tweetRandomImage();
+// }, 3600000); //1 sec = 1000ms
+
+cron.schedule('* * */1 * * *', () => {
+  console.log('running a task every 1 hr');
   tweetRandomImage();
-}, 3600000); //1 sec = 1000ms
+});

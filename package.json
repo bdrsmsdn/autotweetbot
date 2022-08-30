@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "node-cron": "^3.0.2",
     "twit": "^2.2.11"
   }
 }
