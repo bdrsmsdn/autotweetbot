@@ -86,7 +86,7 @@ function tweetRandomImage() {
 // }, 3600000); //1 sec = 1000ms
 
 //run every 1 hour
-cron.schedule('* */1 * * *', () => {
+cron.schedule('* * */1 * * *', () => {
   console.log('running a task every 1 hr');
   tweetRandomImage();
 });
