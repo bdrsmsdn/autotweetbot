@@ -65,7 +65,7 @@ function tweetRandomImage() {
                   } else {
                     console.log('posted an image!');
                     //posted image will move to uploaded directory
-                    const nim = __dirname + '/uploaded/' + img;
+                    const nim = path.join(__dirname + '/uploaded/' + img);
                     fs.rename(imagePath, nim, function (err) {
                       if (err) throw err;
                       console.log('Successfully moved image!');
@@ -86,7 +86,7 @@ function tweetRandomImage() {
 // }, 3600000); //1 sec = 1000ms
 
 //run every 1 hour
-cron.schedule('* * */1 * * *', () => {
+cron.schedule('* */1 * * *', () => {
   console.log('running a task every 1 hr');
   tweetRandomImage();
 });
