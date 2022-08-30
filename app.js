@@ -2,7 +2,7 @@ require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
 const Twit = require('twit');
-const formidable = require('formidable');
+// const formidable = require('formidable');
 const cron = require('node-cron');
 
 const T = new Twit({ consumer_key: process.env.CONSUMER_KEY, consumer_secret: process.env.CONSUMER_KEY_SECRET, access_token: process.env.ACCESS_TOKEN, access_token_secret: process.env.ACCESS_TOKEN_SECRET });
@@ -65,13 +65,13 @@ function tweetRandomImage() {
                   } else {
                     console.log('posted an image!');
                     //posted image will move to uploaded directory
-                    let form = new formidable.IncomingForm();
-                    form.uploadDir = path.join(__dirname + '/uploaded/');
-                    const nim = 'uploaded/' + img;
-                    fs.rename(imagePath, nim, function (err) {
-                      if (err) throw err;
-                      console.log('Successfully moved image!');
-                    });
+                    // let form = new formidable.IncomingForm();
+                    // form.uploadDir = path.join(__dirname + '/uploaded/');
+                    // const nim = 'uploaded/' + img;
+                    // fs.rename(imagePath, nim, function (err) {
+                    //   if (err) throw err;
+                    //   console.log('Successfully moved image!');
+                    // });
                   }
                 }
               );
@@ -88,7 +88,7 @@ function tweetRandomImage() {
 // }, 3600000); //1 sec = 1000ms
 
 //run every 1 hour
-cron.schedule('* */1 * * *', () => {
+cron.schedule('* * */1 * * *', () => {
   console.log('running a task every 1 hr');
   tweetRandomImage();
 });
