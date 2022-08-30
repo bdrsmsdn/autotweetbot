@@ -19,7 +19,7 @@ function randomFromArray(arr) {
 }
 
 function tweetRandomImage() {
-  fs.readdir(__dirname + '/images', function (err, files) {
+  fs.readdir('images', function (err, files) {
     if (err) {
       console.log('error:', err);
     } else {
@@ -30,7 +30,7 @@ function tweetRandomImage() {
 
       console.log('opening an image...');
       const img = randomFromArray(images);
-      const imagePath = path.join(__dirname, '/images/' + img),
+      const imagePath = path.join('images/' + img),
         b64content = fs.readFileSync(imagePath, { encoding: 'base64' });
 
       console.log('uploading an image...');
@@ -65,7 +65,7 @@ function tweetRandomImage() {
                   } else {
                     console.log('posted an image!');
                     //posted image will move to uploaded directory
-                    const nim = path.join(__dirname + '/uploaded/' + img);
+                    const nim = path.join('uploaded/' + img);
                     fs.rename(imagePath, nim, function (err) {
                       if (err) throw err;
                       console.log('Successfully moved image!');
