@@ -1,10 +1,11 @@
+require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
 const Twit = require('twit');
-const config = require('./config');
+// const config = require('./config');
 const cron = require('node-cron');
 
-const T = new Twit(config);
+const T = new Twit({ consumer_key: process.env.CONSUMER_KEY, consumer_secret: process.env.CONSUMER_KEY_SECRET, access_token: process.env.ACCESS_TOKEN, access_token_secret: process.env.ACCESS_TOKEN_SECRET });
 
 // T.post('statuses/update', { status: 'TES' }, function (err, data, response) {
 //   console.log(data);
@@ -28,8 +29,8 @@ function tweetRandomImage() {
       });
 
       console.log('opening an image...');
-
-      const imagePath = path.join(__dirname, '/images/' + randomFromArray(images)),
+      const img = randomFromArray(images);
+      const imagePath = path.join(__dirname, '/images/' + img),
         b64content = fs.readFileSync(imagePath, { encoding: 'base64' });
 
       console.log('uploading an image...');
@@ -63,6 +64,12 @@ function tweetRandomImage() {
                     console.log('error:', err);
                   } else {
                     console.log('posted an image!');
+                    //posted image will move to uploaded directory
+                    const nim = './uploaded/' + img;
+                    fs.rename(imagePath, nim, function (err) {
+                      if (err) throw err;
+                      console.log('Successfully moved image!');
+                    });
                   }
                 }
               );
@@ -78,7 +85,8 @@ function tweetRandomImage() {
 //   tweetRandomImage();
 // }, 3600000); //1 sec = 1000ms
 
-cron.schedule('* * */1 * * *', () => {
+//run every 1 hour
+cron.schedule('* */1 * * *', () => {
   console.log('running a task every 1 hr');
   tweetRandomImage();
 });
