@@ -65,7 +65,7 @@ function tweetRandomImage() {
                   } else {
                     console.log('posted an image!');
                     //posted image will move to uploaded directory
-                    const nim = './uploaded/' + img;
+                    const nim = __dirname + '/uploaded/' + img;
                     fs.rename(imagePath, nim, function (err) {
                       if (err) throw err;
                       console.log('Successfully moved image!');
