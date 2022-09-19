@@ -1,5 +1,4 @@
 node_modules
 package-lock.json
 tess.js
-env
-gitignore
+.env
