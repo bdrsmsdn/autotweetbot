@@ -16,7 +16,6 @@
     "crypto": "^1.0.1",
     "dotenv": "^16.0.1",
     "express": "^4.17.2",
-    "jimp-watermark": "^1.1.0",
     "node-cron": "^3.0.2",
     "oauth-1.0a": "^2.2.6",
     "twit": "^2.2.11"
