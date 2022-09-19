@@ -46,7 +46,7 @@ async function doJob() {
 }
 
 //run every 1 hour
-cron.schedule('*/30 * * * * *', () => {
+cron.schedule('0 */1 * * *', () => {
   console.log('running a task every 1 hr');
   tweetRandomImage();
 });
