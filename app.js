@@ -2,7 +2,7 @@ require('dotenv').config();
 const Twit = require('twit');
 // const formidable = require('formidable');
 const cron = require('node-cron');
-const { tweetRandomImage, tweetEvent } = require('./lib/function');
+const { tweetRandomImage, tweetEvent, tes } = require('./lib/function');
 const { Twitt } = require('./twitter');
 // const { config } = require('./utils/config');
 
@@ -46,9 +46,10 @@ async function doJob() {
 }
 
 //run every 1 hour
-cron.schedule('*/30 * * * * *', () => {
+cron.schedule('0 */1 * * *', () => {
   console.log('running a task every 1 hr');
   tweetRandomImage();
+  // tes();
 });
 
 // cron.schedule('*/3 * * * *', () => {
