@@ -5,7 +5,7 @@ const { tweetRandomImage, tweetEvent, tes } = require('./lib/function');
 console.log('BOT IS STARTING');
 
 //run every 1 hour
-cron.schedule('*/30 * * * * *', () => {
+cron.schedule('0 */1 * * *', () => {
   console.log('running a task every 1 hr');
   tweetRandomImage();
 });
